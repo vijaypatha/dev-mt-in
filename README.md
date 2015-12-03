@@ -75,4 +75,32 @@ To use this to filter data takes only one more step. Inside of the friend list `
 ```
 After refreshing the page you should now be able to type into the 'Find Friends' box and see your friend's list filter in real time.
 
-Well done! You've finished your first day of AngularJS, now you have the knowledge to allow users to dynamically update the `$scope`, use filters, and use data binding. Tomorrow we'll be covering services, event handlers, and using services to save data to the browser.
+###Step 5: ng-options and more filtering.
+We want our users to be able to choose whether they want to sort their friends in ascending or descending order. To do this we will be using Angular's `ng-options` directive. `ng-options` works similarly to `ng-repeat` but creates a select box with dynamically generated options instead of repeating an element.
+
+Before adding this directive to our HTML we need to create an array on our controller to give `ng-options` something to loop over. This will be an array of two objects containing a select value and a display value. It should look something like this:
+```javascript
+$scope.sortOptions = [{
+		  display: 'Ascending'
+		, value: false
+	},
+	{
+		  display: 'Descending'
+		, value: true
+	}
+];
+```
+Remember that `display` and `value` are just key names, they can be named whatever you like as long as you adjust the HTML accordingly.
+
+Next we will need to add a select element into our `index.html` just below our search bar. The syntax for `ng-options` is very similar to `ng-repeat` with some extras added on. It will look like this:
+```html
+<select ng-model="sortReverse" ng-options="option.value as option.display for option in sortOptions"></select>
+```
+The syntax is a little odd, but what we are saying is that `option.value` will be the value we use for every `option.display` in our `sortOptions` array. It is also important to notice that I included an `ng-model` on the new select element. `ng-options` will not work at all without an `ng-model` to pass its data to.
+
+To add this logic to our filter we only need to pass our `ng-repeat` a new filter called `orderBy`. The first argument passed to orderBy is the property we wish to sort on, the second is a boolean that tells `orderBy` whether or not we wish to reverse the array.
+```html
+<div class="friendList" ng-repeat="friend in myProfile.friends | filter : findFriend.name | orderBy : "name" : sortReverse">
+```
+
+Well done! You've finished your first day of AngularJS, now you have the knowledge to allow users to interact with the `$scope`, repeat over data, filter data, bind data to the DOM, and dynamically generate select elements using `ng-options`.

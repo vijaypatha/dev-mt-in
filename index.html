@@ -40,7 +40,8 @@
 
     <button class="l-btn l-btn-main">Go</button>
     <input type="text" placeholder="Find Friends" ng-model="findFriend.name">    
-    <div class="friendList" ng-repeat="friend in myProfile.friends | filter : findFriend.name">
+    <select ng-model="sortReverse" ng-options="option.value as option.display for option in sortOptions"></select>
+    <div class="friendList" ng-repeat="friend in myProfile.friends | filter : findFriend.name | orderBy : name : sortReverse">
       <span class="closeBtn"></span>
         {{ friend.name }}
       <br />
