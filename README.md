@@ -138,7 +138,7 @@ Yesterday we started with some basic user interactivity using `ng-model` and `ng
 
 For our first `ng-click` we'll start with a simple expression that disables profile editing unless the editing button is clicked. Begin by creating `$scope.editing` in your homeCtrl and setting its value to `false`.
 
-To disable our form fields we need to use another built-in Angular directive, `ng-disabled`. `ng-disabled` simply evaluates the expression passed to it and disables its containing element based on the truthy or falsyness of the expression. Add `ng-disabled` as an attribute to the three profile inputs and pass them `!editing`. Once you refresh the page the profile form fields should now be disabled.
+To disable our form fields we need to use another built-in Angular directive, `ng-disabled`. `ng-disabled` simply evaluates the expression passed to it and disables its containing element based on the truthy or falsyness of the expression. Add `ng-disabled` as an attribute to the three profile inputs, as well as the 'Save' button and pass them `!editing`. Once you refresh the page the profile form fields should now be disabled.
 
 Now that we have our `ng-disabled` working, we just need to flip the value of `editing` anytime a user clicks on the editing button. To do this we need to add the `ng-click` attribute to our 'Editing' button and pass it `editing = !editing`. One last step for clarity, we should display the value of `editing` inside of the 'Editing' button to make it clear whether or not editing is active.
 
