@@ -100,7 +100,7 @@ The syntax is a little odd, but what we are saying is that `option.value` will b
 
 To add this logic to our filter we only need to pass our `ng-repeat` a new filter called `orderBy`. The first argument passed to orderBy is the property we wish to sort on, the second is a boolean that tells `orderBy` whether or not we wish to reverse the array.
 ```html
-<div class="friendList" ng-repeat="friend in myProfile.friends | filter : findFriend.name | orderBy : "name" : sortReverse">
+<div class="friendList" ng-repeat="friend in myProfile.friends | filter : findFriend.name | orderBy : 'name' : sortReverse">
 ```
 
 Well done! You've finished your first day of AngularJS, now you have the knowledge to allow users to interact with the `$scope`, repeat over data, filter data, bind data to the DOM, and dynamically generate select elements using `ng-options`.
@@ -138,7 +138,7 @@ Yesterday we started with some basic user interactivity using `ng-model` and `ng
 
 For our first `ng-click` we'll start with a simple expression that disables profile editing unless the editing button is clicked. Begin by creating `$scope.editing` in your homeCtrl and setting its value to `false`.
 
-To disable our form fields we need to use another built-in Angular directive, `ng-disabled`. `ng-disabled` simply evaluates the expression passed to it and disables its containing element based on the truthy or falsyness of the expression. Add `ng-disabled` as an attribute to the three profile inputs, as well as the 'Save' button and pass them `!editing`. Once you refresh the page the profile form fields should now be disabled.
+To disable our form fields we need to use another built-in Angular directive, `ng-disabled`. `ng-disabled` simply evaluates the expression passed to it and disables its containing element based on the truthy or falsyness of the expression. Add `ng-disabled` as an attribute to the three profile inputs and pass them `!editing`. Once you refresh the page the profile form fields should now be disabled.
 
 Now that we have our `ng-disabled` working, we just need to flip the value of `editing` anytime a user clicks on the editing button. To do this we need to add the `ng-click` attribute to our 'Editing' button and pass it `editing = !editing`. One last step for clarity, we should display the value of `editing` inside of the 'Editing' button to make it clear whether or not editing is active.
 
@@ -181,3 +181,32 @@ The last step for today will be adding functionality to our delete button. This 
 Add an `ng-click` to the 'Delete' button that calls a `deleteProfile` function inside of our controller. Our controller should call a `profileService.deleteProfile` function that simply removes the profile from local storage (`localStorage.removeItem('profile')`). After deleting the profile, we need to get our basic friends list back, so set `$scope.myProfile` equal to `profileService.checkForProfile()` again.
 
 You've completed Angular day two! Now you know how to create services, access services inside of your controllers, handle clicks, and save to local storage.
+
+___
+
+##Day Three: $http and CRUD.
+So far our social network is lacking a social aspect. Today we will add the functionality to connect with an outside API, find and add friends, and save or update our profile remotely.
+
+###Step One: Injecting $http and posting your profile.
+
+
+
+MAKE CHANGES PROFILESERVICE, HOMECTRL. FUNCTION CALLS
+
+
+
+Yesterday we stored our profiles in local storage, allowing them to persist between refreshes. Today we want to add our profile to a database, letting other users find and connect with us.
+
+To begin, we need to inject Angular's built in `$http` service into our `profileService`. `$http` will allow us to make HTTP requests for any CRUD operation (Create, Read, Update, Delete). We will also need to create a variable named `baseUrl` and set it equal to **--BASEURL FIXME--**.
+
+We'll need a new function inside of `profileService` named `postProfile` that takes in a single `profile` parameter. This function will make an HTTP request with the method of 'POST', data of `profile`, and a url of `baseUrl + '/api/profiles'`. It should look something like this:
+```javascript
+this.postProfile = function( profile ) {
+	$http({
+		  method: 'POST'
+		, url: baseUrl + '/api/profiles'
+		, data: profile
+	})
+}
+```
+We will also want to add a `.then` method to the end of our `$http` request. `.then` takes in a callback function as an argument, and that callback function will take in a `profileResponse` parameter.
