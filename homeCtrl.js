@@ -8,14 +8,21 @@ angular.module('devMtIn')
 	}
 
 	$scope.deleteProfile = function() {
-		profileService.deleteProfile();
+		profileService.deleteProfile()
+			.then(function( deletedProfile ) {
+				localStorage.removeItem('profileId');
+				$scope.myProfile = {};
+			})
+			.catch(function( err ) {
+				console.error(err);
+			});
 	}
 
 	$scope.checkForProfile = function() {
-		var profileId = JSON.parse(localStorage.getItem('profileId')).profileId;
+		var profileId = JSON.parse(localStorage.getItem('profileId'));
 
 		if (profileId) {
-			profileService.checkForProfile(profileId)
+			profileService.checkForProfile(profileId.profileId)
 				.then(function( profile ) {
 					$scope.myProfile = profile.data;
 				})
@@ -35,5 +42,5 @@ angular.module('devMtIn')
 		, value: true
 	}
 	];
-	
+
 });

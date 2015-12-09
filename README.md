@@ -243,10 +243,10 @@ For this to work we will also need to adjust our `homeCtrl`. Remove the line whe
 The final function should look like this:
 ```javascript
 $scope.checkForProfile = function() {
-	var profileId = JSON.parse(localStorage.getItem('profileId')).profileId;
+	var profileId = JSON.parse(localStorage.getItem('profileId'));
 
 	if (profileId) {
-		profileService.checkForProfile(profileId)
+		profileService.checkForProfile(profileId.profileId)
 			.then(function( profile ) {
 				$scope.myProfile = profile.data;	
 			})
@@ -261,4 +261,32 @@ The last step here is to invoke your `$scope.checkForProfile` function immediatl
 You should now be able to create and retrieve your profile from the remote server.
 
 ###Step Three: Deleting your profile.
-The last update to have all of our previous functionality working with a remote server is to update our profile deleting functions.
+The last update to have all of our previous functionality working with a remote server is to update our profile deleting functions. As we have before, let's clear out our `profileService.deleteProfile` function and start fresh.
+
+Our fresh `deleteProfile` function will need to retrieve our `profileId` from local storage, then return an HTTP request with a method of 'DELETE', to the URL `baseUrl + '/api/profiles/' + profileId`.
+
+```javscript
+this.deleteProfile = function() {
+	var profileId = JSON.parse(localStorage.getItem('profileId')).profileId;
+
+	return $http({
+		  method: 'DELETE'
+		, url: baseUrl + '/api/profiles/' + profileId	
+	});
+}
+```
+
+With that done, we need to update our `homeCtrl`. All we need to do here is add a `.then` to our current `profileService.deleteProfile()` call that removes the `profileId` from local storage and sets `$scope.myProfile` equal to an empty object.
+```javascript
+$scope.deleteProfile = function() {
+	profileService.deleteProfile()
+		.then(function( deletedProfile ) {
+			localStorage.removeItem('profileId');
+			$scope.myProfile = {};
+		})
+		.catch(function( err ) {
+			console.error(err);
+		});
+}
+```
+Our app is now functional in all of the basic steps of creating, saving, retrieving, and deleting our profile on a remote server. Tomorrow we will cover promises, `$q`, and finding and adding friends.
