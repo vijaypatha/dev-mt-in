@@ -1,17 +1,26 @@
 angular.module('devMtIn')
-.service('profileService', function() {
+.service('profileService', function( $http ) {
+	var baseUrl = 'http://localhost:8081'
 
 	this.saveProfile = function( profile ) {
-		localStorage.setItem('profile', JSON.stringify(profile));
+		$http({
+			  method: 'POST'
+			, url: baseUrl + '/api/profiles'
+			, data: profile
+		})
+			.then(function( profileResponse ) {
+				localStorage.setItem('profileId', JSON.stringify({ profileId: profileResponse.data._id }));
+			})
+			.catch(function( err ) {
+				console.error(err);
+			});
 	}
 
-	this.checkForProfile = function() {
-		if (localStorage.getItem('profile')) {
-			console.log('test')
-			return JSON.parse(localStorage.getItem('profile'));
-		}
-
-		return { friends: [{name: 'Ryan'}, {name: 'Bryan'}, {name: 'Sarah'}, {name: 'Zac'}, {name: 'Erin'}] }
+	this.checkForProfile = function( profileId ) {
+		return $http({
+			  method: 'GET'
+			, url: baseUrl + '/api/profiles/' + profileId
+		});
 	}
 
 	this.deleteProfile = function() {

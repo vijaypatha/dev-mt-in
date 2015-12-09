@@ -188,25 +188,77 @@ ___
 So far our social network is lacking a social aspect. Today we will add the functionality to connect with an outside API, find and add friends, and save or update our profile remotely.
 
 ###Step One: Injecting $http and posting your profile.
-
-
-
-MAKE CHANGES PROFILESERVICE, HOMECTRL. FUNCTION CALLS
-
-
-
 Yesterday we stored our profiles in local storage, allowing them to persist between refreshes. Today we want to add our profile to a database, letting other users find and connect with us.
+
+Before we start writing our new code, let's make some adjustments. Delete the array of friends from the `profileService.checkForProfile` function and run `localStorage.removeItem('myProfile')` in your console so we can start fresh.
 
 To begin, we need to inject Angular's built in `$http` service into our `profileService`. `$http` will allow us to make HTTP requests for any CRUD operation (Create, Read, Update, Delete). We will also need to create a variable named `baseUrl` and set it equal to **--BASEURL FIXME--**.
 
-We'll need a new function inside of `profileService` named `postProfile` that takes in a single `profile` parameter. This function will make an HTTP request with the method of 'POST', data of `profile`, and a url of `baseUrl + '/api/profiles'`. It should look something like this:
+We're going to adjust our `saveProfile` function inside of `profileService`, now instead of saving our whole profile to local storage, we want to post it to the database, and just save the unique _id the database sends back to us. Let's delete everything we currently have inside of the function and start from scratch.
+
+Our uptated `saveProfile` function will make an HTTP request with the method of 'POST', data of `profile`, and a url of `baseUrl + '/api/profiles'`. It should look something like this:
 ```javascript
 this.postProfile = function( profile ) {
 	$http({
+		  method: 'POST' // Request method.
+		, url: baseUrl + '/api/profiles' // URL we are making the request to.
+		, data: profile // The data we are requesting be posted.
+	})
+}
+```
+We will also want to add a `.then` method to the end of our `$http` request. `.then` takes in a callback function as an argument, and that callback function will take in a `profileResponse` parameter. Inside of our callback function we now want to set `localStorage.setItem('profile', JSON.stringify({ profileId: profileResponse.data._id }));`. Then `catch` any errors. The end result will look like this:
+```javascript
+this.saveProfile = function( profile ) {
+	$http({ // Requests that your profile be added to the database
 		  method: 'POST'
 		, url: baseUrl + '/api/profiles'
 		, data: profile
 	})
+		.then(function( profileResponse ) { // What to do after a response comes back from the server.
+			localStorage.setItem('profileId', JSON.parse({ profileId: profileResponse.data._id })); // Save our unique _id to local storage
+		})
+		.catch(function( err ) {
+			console.error(err);
+		});
 }
 ```
-We will also want to add a `.then` method to the end of our `$http` request. `.then` takes in a callback function as an argument, and that callback function will take in a `profileResponse` parameter.
+I also recommend a `console.log(profileResponse)` inside of your `.then` callback to see exactly what data the server is sending back to you.
+
+###Step Two: Retrieving your profile from the server.
+Our profile is now saving to the server, but we never retrieve it, and local storage is only saving our id. Let's fix this.
+
+To make this work we're going to change our `profileService.checkForProfile` function. Just like before, let's delete what we currently have inside the function and start fresh. This updated function will take in a `profileId` parameter. All the function needs to do is return an HTTP request with the method of 'GET' and a URL of `baseUrl + '/api/profiles' + profileId`.
+```javascript
+this.checkForProfile = function( profileId ) {
+	return $http({
+		  method: 'GET'
+		, url: baseUrl + '/api/profiles' + profileId
+	});
+}
+```
+For this to work we will also need to adjust our `homeCtrl`. Remove the line where we set `$scope.myProfile` equal to `profileService.checkForProfile` and create a new function named `$scope.checkForProfile`.
+
+`$scope.checkForProfile` will first pull our `profileId` from local storage and save it to a variable named `profileId`, next it will need to check whether or not `profileId` exists. If `profileId` exists, we will want to invoke `profileService.checkForProfile` and call the `.then` method. Inside of the callback function for `.then` we will want to set `$scope.myProfile` equal to the response from our callback function, then `.catch` any errors.
+
+The final function should look like this:
+```javascript
+$scope.checkForProfile = function() {
+	var profileId = JSON.parse(localStorage.getItem('profileId')).profileId;
+
+	if (profileId) {
+		profileService.checkForProfile(profileId)
+			.then(function( profile ) {
+				$scope.myProfile = profile.data;	
+			})
+			.catch(function ( err ) {
+				console.error(err);
+			});
+	}
+}
+```
+The last step here is to invoke your `$scope.checkForProfile` function immediatly after declaring it.
+
+You should now be able to create and retrieve your profile from the remote server.
+
+###Step Three: Deleting your profile.
+The last update to have all of our previous functionality working with a remote server is to update our profile deleting functions.
