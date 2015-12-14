@@ -27,7 +27,7 @@ angular.module('devMtIn')
 	
 });
 ```
-Remember that we don't want to pass our `angular.module` an array here! When you pass in an array, you are declaring an entire new module rather than extending your current one. Now all we need to do is include the script in a new script tag and add the `ng-controller` attribute to our `<body>` tag and pass it "homeCtrl".
+Remember that we don't want to pass our `angular.module` an array here! When you pass in an array, you are making an entire new app rather than looking for your current one. Now all we need to do is include the script in a new script tag and add the `ng-controller` attribute to our `<body>` tag and pass it "homeCtrl".
 
 To test that everything is working so far, create a property on your `$scope` called 'myProfile' and set it equal to an object containing `name: _YOUR NAME_`. Inside of your HTML replace the header 'Your Name' with `{{ myProfile.name }}`. If everything is working you should see your name at the top of the page.
 
