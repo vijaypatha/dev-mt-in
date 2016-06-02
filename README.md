@@ -10,7 +10,7 @@ That is all.  You will receive no instructions.
 
 Your mentors have been asked to provide only minimal guidance. They can point you in the right direction, but cannot help you code.  Similar to how an intern might receive guidance.  This project is a chance for you to combine and showcase the skills you've learned so far.  
 
-With this guidance only structure we believe this project will showcase what you can do as an individual at this point of the program. 
+With this guidance only structure we believe this project will showcase what you can do as an individual at this point of the program.
 Because of this we feel this project will be worth putting in your portfolio.
 
 Good luck and work hard!
@@ -34,9 +34,9 @@ These are located in the images folder in this project.
 
 ### Day 1:
 __Bottom Nav__
-* Navigation is controlled at the bottom of the screen
-* User can navigate between `View Friends` `Find Friends` and `Update Profile`
-* Currently focused 'page' is underlined
+* Navigation is controlled at the bottom of the screen **DONE***
+* User can navigate between `View Friends` `Find Friends` and `Update Profile` **DONE***
+* Currently focused 'page' is underlined ***DONE***
 
 __Entry View__
 * Entry view is seen when the user first enters the application
@@ -71,7 +71,7 @@ __Friend Profile View__
 * User can navigate using the back button back to friends view
 * Add Friend Button
     * Says `Add Friend` if person is not your friend already
-        * Adds that person to your friend list 
+        * Adds that person to your friend list
     * Says `Remove Friend` if person is your friend
         * Removes that person to your friend list
 
