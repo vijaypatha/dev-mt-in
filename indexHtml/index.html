@@ -1,15 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <title>Social App</title>
-  <link rel="stylesheet" href="../css/styles3.css">
-  <!-- Latest compiled and minified BOOTSTRAP CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Social App</title>
+    <link rel="stylesheet" href="../css/styles3.css">
+    <!-- Latest compiled and minified BOOTSTRAP CSS -->
+    <link rel="stylesheet" href="../bootstrap-3.3.6-dist/css/bootstrap.css">
 </head>
+
 <body>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+  <nav class="navbar navbar-fixed-top">
+    <div class="page-header">
+        <span class="glyphicon glyphicon-search"></span>
+        <h1 class="title">Social ButterFly</h1>
+        <span class="glyphicon glyphicon-menu-hamburger"></span>
+    </div>
+    </nav>
+    <main>
+    <div class="container">
+      <div class="row">
+        <div class="container">
+          <div class="col-md-12">
+            <img src="../images/butterfly.jpg" alt="">
+          </div>
+        </div>
+      </div>
+        <div class="row">
+            <div class="col-md-12">
+              <br>
+                <p class="lead">
+                    Welcome to ButterFly Social Network. Add some info so Friends can find you.
+                </p>
+
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+                        <input type="text" class="form-control" placeholder="Full Name" aria-describedby="basic-addon1">
+                        <input type="text" class="form-control" placeholder="Tag Line" aria-describedby="basic-addon1">
+                        <input type="text" class="form-control" placeholder="Profile Image URL" aria-describedby="basic-addon1">
+                        <input type="text" class="form-control" placeholder="Bio" aria-describedby="basic-addon1">
+
+                    </div>
+
+                      <button type="button" class="btn">Save Changes</button>
+
+
+
+
+            </div>
+        </div>
+    </div>
+    </main>
+
+    <nav class="navbar navbar-bottom">
+      <div class="container" id="footer">
+        <ul class="footerList">
+          <li><a href="#">View Friends</a></li>
+          <li><a href="#">Find Friends</a></li>
+          <li><a href="#">Update Profile</a></li>
+        </ul>
+      </div>
+    </nav>
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
 </body>
+
 </html>

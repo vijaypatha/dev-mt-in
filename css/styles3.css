@@ -2,25 +2,196 @@ html,html .ng-scope{margin:0;padding:0}body{background-color:#fffcf9;background-
 .l-header{
   text-align: center;
 }
+ /***** My CSS ****/
 
+ .page-header{
+   display: flex;
+   justify-content: space-around;
+    margin-top: 17px;
+    padding-top: 0.5px;
+ }
+ .title{
+   font-size: 20px;
+   margin-top: 1px;
+ }
+ img{
+   width: 280px;
+   margin-top: 80px;
 
-
-footer {
-    margin-top: 100px;
-    border-top: 1px solid dimgray;
+ }
+.form-control{
+  border: 1px solid #eee;
+    margin-top: 10px;
+    border-radius: 10px;
 }
-footer a {
-    text-decoration: none;
-    color: black;
-    margin-left: 20px;
+.btn{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #74fdf2
 }
-footer a:active{
-  border-bottom: 1px solid blue;
+main{
+  padding-bottom: 20px;
+}
+.navbar{
+  margin-bottom: 0px;
+}
+#footer {
+border-top: 1px solid #eee;
+}
 
+ ul{
+  padding-left: 15px;
+  padding-top: 15px;
+  padding-bottom: 5px;
 }
-footer li {
-    text-decoration: none;
-    display: flex;
-    justify-content: space-between;
+li{
     display: inline;
+    justify-content: space-between;
+    margin-left: 1px;
+
+}
+a{
+  margin-top: 10px;
+}
+
+@media(min-width: 375px) {
+  img{
+    width: 325px;
+     margin-top: 80px;
+  }
+  .form-control{
+    border: 1px solid #eee;
+      margin-top: 15px;
+      border-radius: 10px;
+  }
+  li{
+      display: inline;
+      justify-content: space-between;
+      margin-left: 18px;
+
+  }
+  .btn{
+    margin-top: 15px;
+    margin-bottom: 5px;
+    background-color: rgba(101, 10, 179, 0.6);
+    color:white;
+  }
+}
+
+
+@media(min-width: 400px) {
+  img{
+    width: 350px;
+     margin-top: 80px;
+  }
+  .form-control{
+    border: 1px solid #eee;
+      margin-top: 15px;
+      border-radius: 10px;
+  }
+  li{
+      display: inline;
+      justify-content: space-between;
+      margin-left: 18px;
+
+  }
+  .btn{
+    margin-top: 15px;
+    margin-bottom: 5px;
+    background-color: rgba(101, 10, 179, 0.6);
+    color:white;
+  }
+}
+@media(min-width: 750px) {
+  .page-header{
+    display: flex;
+    justify-content: space-around;
+     margin-top: 25px;
+     padding-top: 0.5px;
+  }
+  .title{
+    font-size: 35px;
+    margin-top: 2px;
+    padding-left: 30px;
+    padding-right: 80px;
+  }
+  img{
+    width: 650px;
+  }
+  .form-control{
+    border: 1px solid #eee;
+      margin-top: 15px;
+      border-radius: 10px;
+  }
+  li{
+      display: inline;
+      justify-content: space-between;
+      margin-left: 85px;
+
+  }
+  .btn{
+    margin-top: 30px;
+    margin-bottom: 5px;
+    background-color: rgba(101, 10, 179, 0.6);
+    color:white;
+  }
+  main{
+    padding-bottom: 140px;
+  }
+}
+
+@media(min-width: 1200px) {
+  .page-header{
+    display: flex;
+    justify-content: space-around;
+     margin-top: 25px;
+     padding-top: 0.5px;
+  }
+  .title{
+    font-size: 35px;
+    margin-top: 2px;
+  }
+
+  img{
+    margin-top: 100px;
+    width: 1150px;
+    height: 600px;
+  }
+
+  .form-control{
+    border: 1px solid #eee;
+      margin-top: 15px;
+      border-radius: 10px;
+  }
+  li{
+      display: inline;
+      justify-content: space-between;
+      margin-left: 185px;
+
+  }
+  .lead{
+    margin-left: 40px;
+    margin-top: 160px;
+  }
+
+  .form-control{
+    border: 1px solid #eee;
+      margin-top: 10px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 40px;
+  }
+  .btn{
+    margin-top: 30px;
+    margin-bottom: 5px;
+    background-color: rgba(101, 10, 179, 0.6);
+    margin-left: 40px;
+
+    color:white;
+  }
+  main{
+    padding-bottom: 80px;
+  }
 }
